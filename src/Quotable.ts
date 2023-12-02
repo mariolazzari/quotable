@@ -38,27 +38,35 @@ export class Quotable {
     maxLength,
     minLength,
     author,
+    tags,
   }: RandomQuoteParams = {}) {
     let url = '/quotes/random';
     let qryStr = '';
 
-    if (limit && limit > 0 && limit <= 50) {
-      qryStr += `limit=${limit}`;
-    }
-
-    if (maxLength) {
-      qryStr += `maxLength=${maxLength}`;
+    if (limit) {
+      qryStr += `&limit=${limit}`;
     }
 
     if (minLength) {
-      qryStr += `maxLength=${maxLength}`;
+      qryStr += `&minLength=${minLength}`;
+    }
+
+    if (maxLength) {
+      qryStr += `&maxLength=${maxLength}`;
     }
 
     if (author) {
-      qryStr += `author=${author}`;
+      qryStr += `&author=${author}`;
     }
 
-    url += `?${qryStr}`;
+    if (tags) {
+      qryStr += `&tags=${tags}`;
+    }
+
+    // add query string
+    if (qryStr) {
+      url += `?${qryStr.replace('&', '')}`;
+    }
 
     const quotes = await this.fetchData<Quote[]>(url);
 
