@@ -1,17 +1,19 @@
 // https://github.com/lukePeavey/quotable#get-random-quotes
 
+import AuthorRequest from './types/AuthorRequst';
 import ListQuoteRequest from './types/ListQuoteRequest';
 import ListQuoteResponse from './types/ListQuoteResponse';
-import Params from './types/Params';
+import RequestParams from './types/RequestParams';
 import Quote from './types/Quote';
-import RandomQuoteParams from './types/RandomQuoteParams';
+import RandomQuoteRequest from './types/RandomQuoteRequest';
 import Result from './types/Result';
+import { AuthorResponse } from './types/AuthorResponse';
 
 export class Quotable {
   private baseUrl = 'https://api.quotable.io';
 
   // get url to call (params parser)
-  private getUrl<T extends Params>(url: string, params: T): string {
+  private getUrl<T extends RequestParams>(url: string, params: T): string {
     let qryStr = '';
 
     // query params with values
@@ -56,8 +58,8 @@ export class Quotable {
   }
 
   // get random quotes
-  public async getRandomQuotes(params: RandomQuoteParams = {}) {
-    const url = this.getUrl<RandomQuoteParams>('/quotes/random', params);
+  public async getRandomQuotes(params: RandomQuoteRequest = {}) {
+    const url = this.getUrl<RandomQuoteRequest>('/quotes/random', params);
 
     return await this.fetchData<Quote[]>(url);
   }
@@ -72,6 +74,13 @@ export class Quotable {
   // get quote by ID
   public async getQuote(id: string) {
     return await this.fetchData<Quote>(`/quotes/${id}`);
+  }
+
+  // list authors
+  public async getAuthors(params: AuthorRequest = {}) {
+    const url = this.getUrl<AuthorRequest>('/authors', params);
+
+    return await this.fetchData<AuthorResponse>(url);
   }
 }
 

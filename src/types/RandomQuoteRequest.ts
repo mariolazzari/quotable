@@ -1,5 +1,5 @@
 // random quote prameters
-export type RandomQuoteParams = Partial<{
+export type RandomQuoteRequest = Partial<{
   limit: number;
   maxLength: number;
   minLength: number;
@@ -7,4 +7,4 @@ export type RandomQuoteParams = Partial<{
   author: string;
 }>;
 
-export default RandomQuoteParams;
+export default RandomQuoteRequest;

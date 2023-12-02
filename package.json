@@ -32,6 +32,7 @@
     "trailingComma": "es5"
   },
   "name": "@mariolazzari/quotable",
+  "description": "Quotable REST APIs client TypeScript based",
   "author": "Mario Lazzari",
   "module": "dist/quotable.esm.js",
   "size-limit": [

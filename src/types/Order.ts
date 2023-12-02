@@ -1,3 +1,3 @@
-export type Order = 'asc' | 'desch' | 'default';
+export type Order = 'asc' | 'desc' | 'default';
 
 export default Order;
