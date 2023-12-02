@@ -1,11 +1,34 @@
 // https://github.com/lukePeavey/quotable#get-random-quotes
 
+import ListQuoteRequest from './types/ListQuoteRequest';
+import ListQuoteResponse from './types/ListQuoteResponse';
+import Params from './types/Params';
 import Quote from './types/Quote';
 import RandomQuoteParams from './types/RandomQuoteParams';
 import Result from './types/Result';
 
 export class Quotable {
   private baseUrl = 'https://api.quotable.io';
+
+  // get url to call (params parser)
+  private getUrl<T extends Params>(url: string, params: T): string {
+    let qryStr = '';
+
+    // query params with values
+    Object.entries(params)
+      .filter(v => !!v[1])
+      .forEach((v, idx) => {
+        const sep = idx > 0 ? '&' : '?';
+        qryStr += `${sep}${v[0]}=${v[1]}`;
+      });
+
+    // add query string to endpoint
+    if (qryStr) {
+      return `${url}${qryStr}`;
+    }
+
+    return url;
+  }
 
   // fetch data from api
   private async fetchData<T>(url: string) {
@@ -33,44 +56,17 @@ export class Quotable {
   }
 
   // get random quotes
-  public async getRandomQuotes({
-    limit,
-    maxLength,
-    minLength,
-    author,
-    tags,
-  }: RandomQuoteParams = {}) {
-    let url = '/quotes/random';
-    let qryStr = '';
+  public async getRandomQuotes(params: RandomQuoteParams = {}) {
+    const url = this.getUrl<RandomQuoteParams>('/quotes/random', params);
 
-    if (limit) {
-      qryStr += `&limit=${limit}`;
-    }
+    return await this.fetchData<Quote[]>(url);
+  }
 
-    if (minLength) {
-      qryStr += `&minLength=${minLength}`;
-    }
+  // list quotes
+  public async getQuotes(params: ListQuoteRequest = {}) {
+    const url = this.getUrl<ListQuoteRequest>('/quotes', params);
 
-    if (maxLength) {
-      qryStr += `&maxLength=${maxLength}`;
-    }
-
-    if (author) {
-      qryStr += `&author=${author}`;
-    }
-
-    if (tags) {
-      qryStr += `&tags=${tags}`;
-    }
-
-    // add query string
-    if (qryStr) {
-      url += `?${qryStr.replace('&', '')}`;
-    }
-
-    const quotes = await this.fetchData<Quote[]>(url);
-
-    return quotes;
+    return await this.fetchData<ListQuoteResponse>(url);
   }
 }
 

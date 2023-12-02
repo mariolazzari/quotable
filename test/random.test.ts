@@ -65,7 +65,7 @@ describe('Random quotes', () => {
     expect(data).toBeDefined();
     expect(data?.length).toBe(1);
     if (data && data.length > 0) {
-      expect(data[0].length < maxLength).toBeTruthy();
+      expect(data[0].length <= maxLength).toBeTruthy();
     }
     expect(error).toBeUndefined();
   });
@@ -83,7 +83,7 @@ describe('Random quotes', () => {
     expect(data?.length).toBe(1);
     if (data && data.length > 0) {
       expect(
-        data[0].length > minLength && data[0].length < maxLength
+        data[0].length >= minLength && data[0].length <= maxLength
       ).toBeTruthy();
     }
     expect(error).toBeUndefined();
