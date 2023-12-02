@@ -68,6 +68,11 @@ export class Quotable {
 
     return await this.fetchData<ListQuoteResponse>(url);
   }
+
+  // get quote by ID
+  public async getQuote(id: string) {
+    return await this.fetchData<Quote>(`/quotes/${id}`);
+  }
 }
 
 export default Quotable;
