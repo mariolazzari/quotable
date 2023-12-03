@@ -89,9 +89,11 @@ Quotable client includes the following methods:
 
 ### getQuotes
 
-### getRandonQuote
+### getRandomQuote
 
-### getRandonQuotes
+### getRandomQuotes
+
+### getTags
 
 ## Authors
 

@@ -8,6 +8,8 @@ import Quote from './types/Quote';
 import RandomQuoteRequest from './types/RandomQuoteRequest';
 import Result from './types/Result';
 import { AuthorResponse } from './types/AuthorResponse';
+import TagRequest from './types/TagRequest';
+import Tag from './types/Tag';
 
 export class Quotable {
   private baseUrl = 'https://api.quotable.io';
@@ -81,6 +83,13 @@ export class Quotable {
     const url = this.getUrl<AuthorRequest>('/authors', params);
 
     return await this.fetchData<AuthorResponse>(url);
+  }
+
+  // tags
+  public async getTags(params: TagRequest = {}) {
+    const url = this.getUrl<TagRequest>('/tags', params);
+
+    return await this.fetchData<Tag[]>(url);
   }
 }
 

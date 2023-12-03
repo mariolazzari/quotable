@@ -1,10 +1,12 @@
 import AuthorRequest from './AuthorRequst';
 import ListQuoteRequest from './ListQuoteRequest';
 import RandomQuoteRequest from './RandomQuoteRequest';
+import TagRequest from './TagRequest';
 
 export type RequestParams =
   | ListQuoteRequest
   | RandomQuoteRequest
-  | AuthorRequest;
+  | AuthorRequest
+  | TagRequest;
 
 export default RequestParams;

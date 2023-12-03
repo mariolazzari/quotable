@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",
@@ -18,7 +18,8 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "coverage": "vitest run --coverage"
   },
   "husky": {
     "hooks": {
@@ -47,11 +48,20 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "husky": "^8.0.3",
     "size-limit": "^11.0.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.2",
     "vitest": "^0.34.6"
-  }
+  },
+  "keywords": [
+    "node",
+    "rest-api",
+    "quotable",
+    "culture",
+    "typescript",
+    "vitest"
+  ]
 }
