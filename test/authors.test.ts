@@ -6,7 +6,7 @@ import Author from '../src/types/Author';
 
 describe('Authors', () => {
   it('should return all authors, sorted alphabetically by name', async () => {
-    const sortBy = 'name';
+    const sortBy: SortBy<Author> = 'name';
     const { success, data, error } = await quotable.getAuthors({ sortBy });
 
     expect(success).toBeTruthy();
