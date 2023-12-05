@@ -48,13 +48,13 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.0",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1.0.1",
     "husky": "^8.0.3",
     "size-limit": "^11.0.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.2",
-    "vitest": "^0.34.6"
+    "vitest": "^1.0.1"
   },
   "keywords": [
     "node",
