@@ -12,7 +12,7 @@ import TagRequest from './types/TagRequest';
 import Tag from './types/Tag';
 
 export class Quotable {
-  private baseUrl = 'https://api.quotable.io';
+  private baseUrl = 'http://api.quotable.io';
 
   // get url to call (params parser)
   private getUrl<T extends RequestParams>(url: string, params: T): string {
@@ -34,28 +34,32 @@ export class Quotable {
     return url;
   }
 
-  // fetch data from api
-  private async fetchData<T>(url: string) {
-    const result: Result<T> = {
-      success: false,
-    };
+  // parse api error response
+  private errorParser = (ex: unknown) => {
+    if (ex instanceof Error) {
+      return ex.message;
+    }
+    return 'Internal server error';
+  };
 
+  // fetch data from api
+  private async fetchData<T>(url: string): Promise<Result<T>> {
     try {
       const res = await fetch(`${this.baseUrl}${url}`);
       if (!res.ok) {
-        result.error = res.statusText;
+        throw new Error(res.statusText);
       }
 
       const data: T = await res.json();
-      result.data = data;
-      result.success = true;
+      return {
+        success: true,
+        data,
+      };
     } catch (ex) {
-      if (ex instanceof Error) {
-        result.error = ex.message;
-      }
-      result.error = 'Internal server error';
-    } finally {
-      return result;
+      return {
+        success: false,
+        error: this.errorParser(ex),
+      };
     }
   }
 

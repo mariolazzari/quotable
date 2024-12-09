@@ -345,12 +345,18 @@ type RequestParams =
 
 ### Result
 
+Discriminated union containig api response.
+
 ```ts
-type Result<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
+type Result<T> =
+  | {
+      success: true;
+      data: T;
+    }
+  | {
+      success: false;
+      error: string;
+    };
 ```
 
 ### SortBy
